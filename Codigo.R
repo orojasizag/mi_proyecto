@@ -1,5 +1,10 @@
+#Cargar libreria readr
+library(readr)
+
 #Importar Data Frame
-epa_http <- read_table("C:/Users/OMAR/Desktop/Data Science aplicada a la Ciberseguridad/epa-http/epa-http.csv")
+#epa_http <- read_table("C:/Users/OMAR/Desktop/Data Science aplicada a la Ciberseguridad/epa-http/epa-http.csv")
+epa_http <- read_table("C:/Rita/DataScience/epa-http/epa-http.csv",col_names = FALSE)
+
 #Nombrar columnas<
 names(epa_http) <- c("source","hora","metodo","recurso","protocolo","cod_retorno","tamaño")
 summary(epa_http)
@@ -34,15 +39,26 @@ count(epa_http[grepl("edu",epa_http$source),])
 #PREGUNTA 3
 #De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen
 #de peticiones HTTP de tipo "GET"?
+
+datos_get <- epa_http[grepl("GET", epa_http$metodo_limpio ), ]
+datos_get$hora_format <- as.POSIXlt(datos_get$hora,format="[%d:%H:%M:%OS]")
+datos_get$hora_2 <- datos_get$hora_format$hour
+count(datos_get, hora_2, sort = TRUE)
+
 #PREGUNTA 4
 #De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se
 #han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
 ip_edu <- epa_http[grepl("edu", epa_http$source),]
 fichero_txt <- ip_edu[grepl(".txt", ip_edu$recurso),]
 sum(fichero_txt$tamaño,na.rm = TRUE)
+
 #PREGUNTA 5
 #Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el
 #separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"
+count((filter(epa_http, recurso=="/")))
+
 #PREGUNTA 6
 #Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo)
 #¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
+count(epa_http[grepl("HTTP/1.0",epa_http$protocolo_limpio),])
+
