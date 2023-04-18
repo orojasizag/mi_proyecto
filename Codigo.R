@@ -7,7 +7,11 @@ library(stringr)
 epa_http$metodo_limpio <- str_sub(epa_http$metodo,2)
 epa_http$metodo_limpio <- as.factor(epa_http$metodo_limpio)
 summary(epa_http)
-library(dplyr)
-dplyr::mutate(epa_http,"metodo 2", str_sub(epa_http$metodo,2))
-df2 <- dplyr::mutate(epa_http,"metodo 2", str_sub(epa_http$metodo,2))
-df2 <- dplyr::mutate(epa_http, str_sub(epa_http$metodo,2))
+epa_http$metodo <- NULL
+epa_http$protocolo_limpio <- str_sub(epa_http$protocolo,1,8)
+epa_http$protocolo <- NULL
+epa_http$protocolo_limpio <- as.factor(epa_http$protocolo_limpio)
+summary(epa_http)
+
+
+
