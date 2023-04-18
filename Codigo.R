@@ -34,4 +34,11 @@ count(epa_http[grepl("edu",epa_http$source),])
 #PREGUNTA 3
 #De todas las peticiones recibidas por el servidor cual es la hora en la que hay mayor volumen
 #de peticiones HTTP de tipo "GET"?
+#PREGUNTA 4
+#De las peticiones hechas por instituciones educativas (.edu), ¿Cuantos bytes en total se
+#han transmitido, en peticiones de descarga de ficheros de texto ".txt"?
+ip_edu <- epa_http[grepl("edu", epa_http$source),]
+fichero_txt <- ip_edu[grepl(".txt", ip_edu$recurso),]
+sum(fichero_txt$tamaño,na.rm = TRUE)
+
 
