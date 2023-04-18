@@ -40,5 +40,9 @@ count(epa_http[grepl("edu",epa_http$source),])
 ip_edu <- epa_http[grepl("edu", epa_http$source),]
 fichero_txt <- ip_edu[grepl(".txt", ip_edu$recurso),]
 sum(fichero_txt$tamaño,na.rm = TRUE)
-
-
+#PREGUNTA 5
+#Si separamos la petición en 3 partes (Tipo, URL, Protocolo), usando str_split y el
+#separador " " (espacio), ¿cuantas peticiones buscan directamente la URL = "/"
+#PREGUNTA 6
+#Aprovechando que hemos separado la petición en 3 partes (Tipo, URL, Protocolo)
+#¿Cuantas peticiones NO tienen como protocolo "HTTP/0.2"?
